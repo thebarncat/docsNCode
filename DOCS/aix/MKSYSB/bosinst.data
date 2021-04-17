@@ -1,0 +1,161 @@
+# @(#) 83 1.2.1.23 src/bos/usr/lpp/bosinst/data/bosinst.data.full, bosinst, bos61J, 0942A_61J 10/8/09 15:02:57
+# IBM_PROLOG_BEGIN_TAG 
+# This is an automatically generated prolog. 
+#  
+# bos61J src/bos/usr/lpp/bosinst/data/bosinst.data.full 1.2.1.23 
+#  
+# Licensed Materials - Property of IBM 
+#  
+# Restricted Materials of IBM 
+#  
+# COPYRIGHT International Business Machines Corp. 1993,2009 
+# All Rights Reserved 
+#  
+# US Government Users Restricted Rights - Use, duplication or 
+# disclosure restricted by GSA ADP Schedule Contract with IBM Corp. 
+#  
+# IBM_PROLOG_END_TAG 
+#
+#   COMPONENT_NAME: BOSINST
+#
+#   FUNCTIONS: none
+#
+#   ORIGINS: 27
+#
+#
+#   (C) COPYRIGHT International Business Machines Corp. 1993
+#   All Rights Reserved
+#   Licensed Materials - Property of IBM
+#   US Government Users Restricted Rights - Use, duplication or
+#   disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+#
+# NOTE:  After this first comment section ends, COMMENTS WILL NOT BE ALLOWED.
+#
+# NOTE: Stanzas follow these rules:
+#       1. Stanza names must be at the beginning of the line and end in a colon.
+#       2. Comments may be after the colon, but THAT'S THE ONLY PLACE!!!! other
+#          than here in the header.  Even then, don't expect those comments
+#          to be put back where they were after BOS install gets done processing
+#          this file.  We reserve the right to mangle and ignore all comments
+#          which are not placed in this header.
+#       3. Stanza fields are on lines following stanza names,  Stanza fields
+#          must NOT begin at the beginning of the line, but must have tabs or
+#          blanks in front of them.
+#       4. There can be no blank lines between field lines of the same stanza.
+#       5. A blank line MUST separate each stanza.  In other words, after the
+#          last field line of the stanza, a blank line must follow before the
+#          line containing the stanza name of the next stanza.
+##################################################################################
+##################################################################################
+#
+# CONTROL_FLOW STANZA:
+# control_flow defines the flow of control during BOS install.
+# control_flow:
+#     CONSOLE = Default,< Device which will be your console.  Passed to chcons. >
+#     INSTALL_METHOD = overwrite, preserve, migrate, erase_only
+#     INSTALL_EDITION = express, standard, enterprise
+#     PROMPT = yes,no
+#     EXISTING_SYSTEM_OVERWRITE = yes,no,any
+#     INSTALL_X_IF_ADAPTER = yes,no,all
+#     RUN_STARTUP = yes,no
+#     RM_INST_ROOTS = yes,no
+#     ERROR_EXIT = < Command to run when error occurs.  Must be in boot image. >
+#     CUSTOMIZATION_FILE = < Command to run after BOS install finishes. >
+#     TCB = yes, no  <turns on/off trusted computing base>
+#     INSTALL_TYPE = 
+#     BUNDLES = < Fully qualified Bundle file(s) to install after auto install.
+#		  Maximum of 139 bytes total.   Custom bundle files
+#                 provided on a diskette with the bosinst.data file must
+#                 prefix the bundle file pathname with /../.
+#		  If the list of bundle file names exceeds 139 bytes,
+#		  cat all the bundle files together into a single custom bundle
+#		  file and specify the name of the single custom bundle
+#		  file.>
+#     RECOVER_DEVICES = Default,yes,no
+#     BOSINST_DEBUG = no,yes 
+#     ACCEPT_LICENSES = no,yes 
+#     ACCEPT_SWMA = no,yes 
+#     DESKTOP = CDE,NONE,GNOME,KDE 
+#     INSTALL_DEVICES_AND_UPDATES = yes,no 
+#     IMPORT_USER_VGS = yes,no
+#     ENABLE_64BIT_KERNEL = Default,no,yes
+#     CREATE_JFS2_FS = Default,no,yes 
+#     ALL_DEVICES_KERNELS = yes,no
+#     GRAPHICS_BUNDLE = yes,no (defaults to yes, includes sysmgt.websm)
+#     MOZILLA_BUNDLE = no,yes (defaults to no, requires additional CDs)
+#     KERBEROS_5_BUNDLE = no,yes (defaults to no unless you are running
+#		Kerberos Authentication; requires additional CDs)
+#     SERVER_BUNDLE = no,yes (defaults to no)
+#     ALT_DISK_INSTALL_BUNDLE = no,yes (defaults to no)
+#     REMOVE_JAVA_118 = no,yes (defaults to no, only applicable for migration)
+#     HARDWARE_DUMP = yes,no (defaults to yes)
+#     ERASE_ITERATIONS = < Number of times to erase hard drives, 0 to 8.> 
+#                        (defaults to 0)
+#     ERASE_PATTERNS = < Comma seperated list of the hexadecimal patterns to 
+#                        write to the drive while erasing.  A valid pattern is
+#                        between 0 and ffffffff. >
+#     MKSYSB_MIGRATION_DEVICE = /dev/[cd#|rmt#] | network (defaults to blank)
+# 
+# 
+#     PLEASE READ /usr/lpp/bosinst/bosinst.template.README for more information
+# 
+##################################################################################
+
+control_flow:
+    CONSOLE = Default
+    INSTALL_METHOD = overwrite
+    INSTALL_EDITION = standard
+    INSTALL_VIOS = 
+    PROMPT = yes
+    EXISTING_SYSTEM_OVERWRITE = any
+    INSTALL_X_IF_ADAPTER = yes
+    RUN_STARTUP = yes
+    RM_INST_ROOTS = no
+    ERROR_EXIT = 
+    CUSTOMIZATION_FILE = 
+    TCB = no
+    INSTALL_TYPE = 
+    BUNDLES = 
+    SWITCH_TO_PRODUCT_TAPE = 
+    RECOVER_DEVICES = Default
+    BOSINST_DEBUG = no
+    ACCEPT_LICENSES = 
+    ACCEPT_SWMA = 
+    DESKTOP = NONE
+    INSTALL_DEVICES_AND_UPDATES = yes
+    IMPORT_USER_VGS = 
+    CREATE_JFS2_FS = Default
+    ALL_DEVICES_KERNELS = yes
+    GRAPHICS_BUNDLE = yes
+    SYSTEM_MGMT_CLIENT_BUNDLE = 
+    FIREFOX_BUNDLE = 
+    KERBEROS_5_BUNDLE = no
+    SERVER_BUNDLE = no
+    ALT_DISK_INSTALL_BUNDLE = no
+    REMOVE_JAVA_118 = no
+    HARDWARE_DUMP = yes
+    ADD_CDE = no
+    ADD_GNOME = no
+    ADD_KDE = no
+    ERASE_ITERATIONS = 0
+    ERASE_PATTERNS = 
+    MKSYSB_MIGRATION_DEVICE = 
+    TRUSTED_AIX = no
+    TRUSTED_AIX_LSPP = 
+    TRUSTED_AIX_SYSMGT = 
+    SECURE_BY_DEFAULT = no
+    ADAPTER_SEARCH_LIST = 
+
+locale:
+    BOSINST_LANG = en_US
+    CULTURAL_CONVENTION = en_US
+    MESSAGES = en_US
+    KEYBOARD = en_US
+
+target_disk_data:
+    PVID = 
+    PHYSICAL_LOCATION = 
+    CONNECTION = 
+    LOCATION = 
+    SIZE_MB = 
+    HDISKNAME = hdisk0

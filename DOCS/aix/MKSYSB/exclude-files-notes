@@ -1,0 +1,18 @@
+
+1. Make sure all entries start with a ^./ otherwise you might end up excluding files you did not intend to. 
+Using the ^./ makes the exclude start from / and look for your path.
+Ex.
+^./myfiles/
+^./mytrash/
+
+2. Do not use wildcards. They tend to exclude everything on the system.
+
+3. Excluding files does NOT mean that you are excluding a filesystem. If you have a 200gig filesystem called /backups and you add that to 
+your exclude list :
+^./backups
+All you’ve done is exclude all of the data in that filesystem. If you restore that mksysb, the /backups filesystem will still be recreated at 200gig,
+but it will be empty. The best way to exclude a filesystem from a mksysb backup, will be to unmount the filesystem before running your mksysb.
+Alternatively you can put your filesystem entry in the /etc/exclude.rootvg and
+edit the image.data and remove the entries for the lv and fs but be VERY careful. You can easily corrupt this file.
+
+

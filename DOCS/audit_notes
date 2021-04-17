@@ -1,0 +1,61 @@
+auditd notes:
+
+To see all syscalls made by a specific program:
+       auditctl -a entry,always -S all -F pid=1005
+
+       To see files opened by a specific user:
+       auditctl -a exit,always -S open -F auid=510
+
+       To see unsuccessful open call’s:
+       auditctl -a exit,always -S open -F success=0
+
+       To watch a file for changes (2 ways to express):
+       auditctl -w /etc/shadow -p wa
+       auditctl -a exit,always -F path=/etc/shadow -F perm=wa
+
+       To recursively watch a directory for changes (2 ways to express):
+       auditctl -w /etc/ -p wa
+       auditctl -a exit,always -F dir=/etc/ -F perm=wa
+
+
+auditctl -w /ingmnt/ifmdata/HR/Incoming/ -p warx
+ausearch -f /ingmnt/ifmdata/HR/Incoming -i
+
+auditctl -w /ingmnt/ifmdata/HR/Incoming/ -p war
+
+aureport -f -i
+aureport -f -i -ts today
+ausearch -f /ingmnt/ifmdata/HR/Incoming -i
+ausearch -ts today -f /ingmnt/ifmdata/HR/Incoming -i
+
+# delete rules
+auditctl -D 
+# list rules
+[root@bprdelxachp01 audit]# auditctl -l
+No rules
+
+http://www.cyberciti.biz/tips/linux-audit-files-to-see-who-made-changes-to-a-file.html
+http://people.redhat.com/sgrubb/audit/visualize/index.html
+
+Setup to go to syslog:
+1) service auditd stop
+2) Create rules for auditing:
+auditctl -w H -p warx
+3) service syslog restart
+4) now everything is syslogged but NOT sent to audit.log and audit query
+tools dont work
+
+--
+RHEL7
+
+[root@phltstlxsand001 ~]#  systemctl is-enabled auditd.service
+enabled
+
+[root@phltstlxsand001 ~]# sudo systemctl list-unit-files | grep syslog
+rsyslog.service                               enabled 
+
+https://www.digitalocean.com/community/tutorials/how-to-use-the-linux-auditing-system-on-centos-7
+
+start without systemctl for troubleshoot
+/sbin/auditd -f
+

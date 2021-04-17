@@ -1,0 +1,576 @@
+image_data:
+	IMAGE_TYPE= bff
+	DATE_TIME= Wed Aug 22 11:03:08 EDT 2012
+	UNAME_INFO= AIX bdvdeaxora02 1 6 00F75D974C00
+	PRODUCT_TAPE= no
+	USERVG_LIST= oravg 
+	PLATFORM= chrp
+	OSLEVEL= 6.1.7.15
+	OSLEVEL_R= 6100-07
+	CPU_ID= 00F75D974C00
+	LPAR_ID= 3
+
+logical_volume_policy:
+	SHRINK= no
+	EXACT_FIT= no
+
+ils_data:
+	LANG=  en_US
+
+##Command used for vg_data; /usr/sbin/lsvg
+
+vg_data:
+	VGNAME= rootvg
+	PPSIZE= 512
+	VARYON= no
+	VG_SOURCE_DISK_LIST= hdisk0 
+	QUORUM= 1
+	ENH_CONC_CAPABLE= no
+	CONC_AUTO= no
+	BIGVG= no
+	TFACTOR= 1
+
+##Command used for source_disk_data; /usr/sbin/bootinfo
+
+source_disk_data:
+	PVID= 00f75d97af622529
+	PHYSICAL_LOCATION= U8205.E6C.065D97R-V3-C3-T1-L8300000000000000
+	CONNECTION= vscsi0//830000000000
+	LOCATION= 
+	SIZE_MB= 286102
+	HDISKNAME= hdisk0
+
+##Command used for lv_data; /usr/sbin/lslv
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0  
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.1
+	LOGICAL_VOLUME= hd5
+	VG_STAT= active/complete
+	TYPE= boot
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 1
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= edge
+	MOUNT_POINT= 
+	MIRROR_WRITE_CONSISTENCY= on/ACTIVE
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= closed/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 1
+	BB_POLICY= non-relocatable
+	RELOCATABLE= no
+	UPPER_BOUND= 32
+	LABEL= primary_bootlv
+	MAPFILE=
+	LV_MIN_LPS= 1
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG=  
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0  
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.2
+	LOGICAL_VOLUME= hd6
+	VG_STAT= active/complete
+	TYPE= paging
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 1
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= middle
+	MOUNT_POINT= 
+	MIRROR_WRITE_CONSISTENCY= off
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 1
+	BB_POLICY= non-relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= 
+	MAPFILE=
+	LV_MIN_LPS= 1
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG=  
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0  
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.3
+	LOGICAL_VOLUME= hd8
+	VG_STAT= active/complete
+	TYPE= jfs2log
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 1
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= center
+	MOUNT_POINT= 
+	MIRROR_WRITE_CONSISTENCY= off
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 1
+	BB_POLICY= relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= 
+	MAPFILE=
+	LV_MIN_LPS= 1
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG=  
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0 
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.4
+	LOGICAL_VOLUME= hd4
+	VG_STAT= active/complete
+	TYPE= jfs2
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 2
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= center
+	MOUNT_POINT= /
+	MIRROR_WRITE_CONSISTENCY= on/ACTIVE
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 2
+	BB_POLICY= relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= /
+	MAPFILE=
+	LV_MIN_LPS= 1
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG= vfs=jfs2:log=/dev/hd8:mount=true:quota=no:account=false 
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0 
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.5
+	LOGICAL_VOLUME= hd2
+	VG_STAT= active/complete
+	TYPE= jfs2
+	MAX_LPS= 32512
+	COPIES= 1
+	LPs= 9
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= center
+	MOUNT_POINT= /usr
+	MIRROR_WRITE_CONSISTENCY= on/ACTIVE
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 9
+	BB_POLICY= relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= /usr
+	MAPFILE=
+	LV_MIN_LPS= 7
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG= vfs=jfs2:log=/dev/hd8:mount=true:quota=no:account=false 
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0 
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.6
+	LOGICAL_VOLUME= hd9var
+	VG_STAT= active/complete
+	TYPE= jfs2
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 5
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= center
+	MOUNT_POINT= /var
+	MIRROR_WRITE_CONSISTENCY= on/ACTIVE
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 5
+	BB_POLICY= relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= /var
+	MAPFILE=
+	LV_MIN_LPS= 2
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG= vfs=jfs2:log=/dev/hd8:mount=true:quota=no:account=false 
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0 
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.7
+	LOGICAL_VOLUME= hd3
+	VG_STAT= active/complete
+	TYPE= jfs2
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 4
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= center
+	MOUNT_POINT= /tmp
+	MIRROR_WRITE_CONSISTENCY= on/ACTIVE
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 4
+	BB_POLICY= relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= /tmp
+	MAPFILE=
+	LV_MIN_LPS= 1
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG= vfs=jfs2:log=/dev/hd8:mount=true:quota=no:account=false 
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0 
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.8
+	LOGICAL_VOLUME= hd1
+	VG_STAT= active/complete
+	TYPE= jfs2
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 5
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= center
+	MOUNT_POINT= /home
+	MIRROR_WRITE_CONSISTENCY= on/ACTIVE
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 5
+	BB_POLICY= relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= /home
+	MAPFILE=
+	LV_MIN_LPS= 1
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG= vfs=jfs2:log=/dev/hd8:mount=true:quota=no:account=false 
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0 
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.9
+	LOGICAL_VOLUME= hd10opt
+	VG_STAT= active/complete
+	TYPE= jfs2
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 3
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= center
+	MOUNT_POINT= /opt
+	MIRROR_WRITE_CONSISTENCY= on/ACTIVE
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 3
+	BB_POLICY= relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= /opt
+	MAPFILE=
+	LV_MIN_LPS= 2
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG= vfs=jfs2:log=/dev/hd8:mount=true:quota=no:account=false 
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0 
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.10
+	LOGICAL_VOLUME= hd11admin
+	VG_STAT= active/complete
+	TYPE= jfs2
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 1
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= center
+	MOUNT_POINT= /admin
+	MIRROR_WRITE_CONSISTENCY= on/ACTIVE
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 1
+	BB_POLICY= relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= /admin
+	MAPFILE=
+	LV_MIN_LPS= 1
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG= vfs=jfs2:log=/dev/hd8:mount=true:quota=no:account=false 
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0 
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.11
+	LOGICAL_VOLUME= lg_dumplv
+	VG_STAT= active/complete
+	TYPE= sysdump
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 6
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= middle
+	MOUNT_POINT= 
+	MIRROR_WRITE_CONSISTENCY= on/ACTIVE
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 6
+	BB_POLICY= relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= 
+	MAPFILE=
+	LV_MIN_LPS= 6
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG=  
+	DEV_SUBTYP=no
+
+lv_data:
+	VOLUME_GROUP= rootvg
+	LV_SOURCE_DISK_LIST= hdisk0  
+	LV_IDENTIFIER= 00f75d9700004c000000013806621818.12
+	LOGICAL_VOLUME= livedump
+	VG_STAT= active/complete
+	TYPE= jfs2
+	MAX_LPS= 512
+	COPIES= 1
+	LPs= 1
+	STALE_PPs= 0
+	INTER_POLICY= minimum
+	INTRA_POLICY= middle
+	MOUNT_POINT= /var/adm/ras/livedump
+	MIRROR_WRITE_CONSISTENCY= on/ACTIVE
+	LV_SEPARATE_PV= yes
+	PERMISSION= read/write
+	LV_STATE= opened/syncd
+	WRITE_VERIFY= off
+	PP_SIZE= 512
+	SCHED_POLICY= parallel
+	PP= 1
+	BB_POLICY= relocatable
+	RELOCATABLE= yes
+	UPPER_BOUND= 32
+	LABEL= /var/adm/ras/livedump
+	MAPFILE=
+	LV_MIN_LPS= 1
+	STRIPE_WIDTH= 
+	STRIPE_SIZE= 
+	SERIALIZE_IO= no
+	FS_TAG= vfs=jfs2:log=/dev/hd8:mount=true:account=false 
+	DEV_SUBTYP=no
+
+##Commands used for fs_data; /usr/bin/df, /usr/sbin/lsjfs, and /usr/sbin/lsjfs2
+
+fs_data:
+	FS_NAME= /
+	FS_SIZE= 2097152
+	FS_MIN_SIZE= 945036
+	FS_LV= /dev/hd4
+	FS_JFS2_BS= 4096
+	FS_JFS2_SPARSE= yes
+	FS_JFS2_INLINELOG= no
+	FS_JFS2_SIZEINLINELOG= 0
+	FS_JFS2_EAFORMAT= v1
+	FS_JFS2_QUOTA= no
+	FS_JFS2_DMAPI= no
+	FS_JFS2_VIX= yes
+	FS_JFS2_EFS= no
+
+fs_data:
+	FS_NAME= /usr
+	FS_SIZE= 9437184
+	FS_MIN_SIZE= 6757116
+	FS_LV= /dev/hd2
+	FS_JFS2_BS= 4096
+	FS_JFS2_SPARSE= yes
+	FS_JFS2_INLINELOG= no
+	FS_JFS2_SIZEINLINELOG= 0
+	FS_JFS2_EAFORMAT= v1
+	FS_JFS2_QUOTA= no
+	FS_JFS2_DMAPI= no
+	FS_JFS2_VIX= yes
+	FS_JFS2_EFS= no
+
+fs_data:
+	FS_NAME= /var
+	FS_SIZE= 5242880
+	FS_MIN_SIZE= 1093276
+	FS_LV= /dev/hd9var
+	FS_JFS2_BS= 4096
+	FS_JFS2_SPARSE= yes
+	FS_JFS2_INLINELOG= no
+	FS_JFS2_SIZEINLINELOG= 0
+	FS_JFS2_EAFORMAT= v1
+	FS_JFS2_QUOTA= no
+	FS_JFS2_DMAPI= no
+	FS_JFS2_VIX= yes
+	FS_JFS2_EFS= no
+
+fs_data:
+	FS_NAME= /tmp
+	FS_SIZE= 4194304
+	FS_MIN_SIZE= 181910
+	FS_LV= /dev/hd3
+	FS_JFS2_BS= 4096
+	FS_JFS2_SPARSE= yes
+	FS_JFS2_INLINELOG= no
+	FS_JFS2_SIZEINLINELOG= 0
+	FS_JFS2_EAFORMAT= v1
+	FS_JFS2_QUOTA= no
+	FS_JFS2_DMAPI= no
+	FS_JFS2_VIX= yes
+	FS_JFS2_EFS= no
+
+fs_data:
+	FS_NAME= /home
+	FS_SIZE= 5242880
+	FS_MIN_SIZE= 156076
+	FS_LV= /dev/hd1
+	FS_JFS2_BS= 4096
+	FS_JFS2_SPARSE= yes
+	FS_JFS2_INLINELOG= no
+	FS_JFS2_SIZEINLINELOG= 0
+	FS_JFS2_EAFORMAT= v1
+	FS_JFS2_QUOTA= no
+	FS_JFS2_DMAPI= no
+	FS_JFS2_VIX= yes
+	FS_JFS2_EFS= no
+
+fs_data:
+	FS_NAME= /opt
+	FS_SIZE= 3145728
+	FS_MIN_SIZE= 1197132
+	FS_LV= /dev/hd10opt
+	FS_JFS2_BS= 4096
+	FS_JFS2_SPARSE= yes
+	FS_JFS2_INLINELOG= no
+	FS_JFS2_SIZEINLINELOG= 0
+	FS_JFS2_EAFORMAT= v1
+	FS_JFS2_QUOTA= no
+	FS_JFS2_DMAPI= no
+	FS_JFS2_VIX= yes
+	FS_JFS2_EFS= no
+
+fs_data:
+	FS_NAME= /admin
+	FS_SIZE= 1048576
+	FS_MIN_SIZE= 32768
+	FS_LV= /dev/hd11admin
+	FS_JFS2_BS= 4096
+	FS_JFS2_SPARSE= yes
+	FS_JFS2_INLINELOG= no
+	FS_JFS2_SIZEINLINELOG= 0
+	FS_JFS2_EAFORMAT= v1
+	FS_JFS2_QUOTA= no
+	FS_JFS2_DMAPI= no
+	FS_JFS2_VIX= yes
+	FS_JFS2_EFS= no
+
+fs_data:
+	FS_NAME= /var/adm/ras/livedump
+	FS_SIZE= 1048576
+	FS_MIN_SIZE= 32768
+	FS_LV= /dev/livedump
+	FS_JFS2_BS= 4096
+	FS_JFS2_SPARSE= yes
+	FS_JFS2_INLINELOG= no
+	FS_JFS2_SIZEINLINELOG= 0
+	FS_JFS2_EAFORMAT= v1
+	FS_JFS2_QUOTA= no
+	FS_JFS2_DMAPI= no
+	FS_JFS2_VIX= yes
+	FS_JFS2_EFS= no
+
+post_install_data:
+	BOSINST_FILE= 

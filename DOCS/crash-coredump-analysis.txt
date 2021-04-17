@@ -1,0 +1,194 @@
+crash> sys | grep -e NODE -e RELEASE -e PANIC
+    NODENAME: phlprlxhcrwkr002.kmhp.com
+     RELEASE: 2.6.32-754.11.1.el6.x86_64
+       PANIC: "Kernel panic - not syncing: Out of memory: system-wide panic_on_oom is enabled"
+
+crash> sys -i | grep -e DMI_SYS_VENDOR -A 1
+         DMI_SYS_VENDOR: VMware, Inc.
+       DMI_PRODUCT_NAME: VMware Virtual Platform
+
+The kernel ring buffer shows that the system was running Out of memory (OOM) and since the
+sysctl parameter (panic_on_oom) is enabled, the kernel invoked the panic() to *reboot* the
+system.
+
+Sysctl Parameter:
+
+crash> sysctl_panic_on_oom
+sysctl_panic_on_oom = $1 = 1
+
+Kernel Ring Buffer:
+
+crash> log
+[..]
+Kernel panic - not syncing: Out of memory: system-wide panic_on_oom is enabled
+Pid: 9587, comm: python Not tainted 2.6.32-754.11.1.el6.x86_64 #1
+Call Trace:
+[<ffffffff8155863a>] ? panic+0xa7/0x18b
+[<ffffffff81136751>] ? dump_header+0x191/0x1b0
+[<ffffffff811367ec>] ? check_panic_on_oom+0x7c/0x80
+...
+
+Out of memory (OOM) is a state of computer  operation where *no* additional memory can be
+allocated for use by programs or the  operating system. Such a system will be *unable* to
+load any additional programs and since many programs may load additional data into memory
+during execution these will cease to function correctly. This occur because all available
+memory has been allocated.
+
+When the system runs out of memory, the 'oom_kill' kernel code get initiated and it tries
+to terminate one or more process(es) in order to free up enough memory to keep the system
+operational. The badness() function is *responsible* to select  which process(es) will be
+terminated using a scoring heuristic, and the memory size of the process is the basis for
+the badness(). When *no* more process(es) left on the system  that can fall under scoring
+system of badness() function, then the kernel evokes the panic() function to *reboot* the
+system. 
+
+Normal zone information of Node 0:
+
+crash> kmem -z | grep -e Normal -A 3
+NODE: 0  ZONE: 2  ADDR: ffff8800000685c0  NAME: "Normal"
+  SIZE: 1310720  PRESENT: 1292800  MIN/LOW/HIGH: 10580/13225/15870
+  VM_STAT:
+                NR_FREE_PAGES: 10568
+
+Notice that the NR_FREE_PAGES in ZONE_NORMAL of Node 0 is below MIN water-mark. It means 
+the minimum requirement of the memory (min) is *greater* than available memory (free) in 
+Normal Zone (ZONE_NORMAL) of Node 0.
+
+The analysis of memory utilization indicates that this system was utilizing almost ~100% 
+of the physical memory and ~100% of the swap memory.
+
+crash> kmem -i
+                 PAGES        TOTAL      PERCENTAGE
+    TOTAL MEM  2011048       7.7 GB         ----
+         FREE    25759     100.6 MB    1% of TOTAL MEM
+         USED  1985289       7.6 GB   98% of TOTAL MEM
+       SHARED      685       2.7 MB    0% of TOTAL MEM
+      BUFFERS       61       244 KB    0% of TOTAL MEM
+       CACHED      560       2.2 MB    0% of TOTAL MEM
+         SLAB    21905      85.6 MB    1% of TOTAL MEM
+
+   TOTAL HUGE        0            0         ----
+    HUGE FREE        0            0    0% of TOTAL HUGE
+
+   TOTAL SWAP  4194303        16 GB         ----
+    SWAP USED  4194303        16 GB  100% of TOTAL SWAP
+    SWAP FREE        0            0    0% of TOTAL SWAP
+
+COMMIT LIMIT  5199827      19.8 GB         ----
+    COMMITTED  6388503      24.4 GB  122% of TOTAL LIMIT
+
+The actually committed memory has exceeded the commit limit of ~19.8 GiB by ~4.6 GiB.
+
+The total memory allocated to the user-space process(es) is ~7.31 GiB.
+
+crash> ps -u -G | sed 's/>//g' | awk '{ total += $8 } END { printf "Total RSS of user-mode: %.02f GiB\n", total/2^20 }'
+Total RSS of user-mode: 7.31 GiB
+
+The 'mongo' tasks are the largest consumer of physical memory (RSS).
+
+crash> ps -Gu mongo
+   PID    PPID  CPU       TASK        ST  %MEM      VSZ     RSS  COMM
+  12589      1   0  ffff8802382da040  UN  74.4 24381180 7025896  mongo
+  32076  31564   0  ffff8801035ec040  IN   0.1   748200    8496  mongo
+
+The 'mongo' tasks are alone utilizing ~6.7 GiB of the total physical memory.
+
+crash> ps -Gu mongo | tail -n +2 | cut -b2- | gawk '{mem += $8} END {print "total " mem/1048576 " GB"}'
+total 6.70852 GB
+
+List of the user-space tasks and their corresponding memory usage (RSS):
+
+crash> ps -Gu | sed 's/^>//' | awk '{ m[$9]+=$8 } END { for (item in m) { printf "%20s %10s KiB\n", item, m[item] } }' | sort -k 2 -r -n
+               mongo    7034392 KiB
+                 php     273168 KiB
+              mongod     186460 KiB
+               httpd      67304 KiB
+.....
+
+The 'mongo' tasks are also the largest consumer of the swap memory. 
+
+List of the user-space tasks and their corresponding swap usage:
+
+crash> pswap -Gk | awk '{ m[$3]+=$2 } END { for (item in m) { printf "%20s %10s KiB\n", item, m[item] } }' | sort -k 2 -r -n
+               mongo   16611512 KiB
+               httpd      84276 KiB
+              mongod      23836 KiB
+               rhsmd      13172 KiB
+              mysqld      12144 KiB
+ .....
+ 
+
+The 'mongo' task is running with the privilege of UID and GID (1845607980).
+
+crash> set 12589
+    PID: 12589
+COMMAND: "mongo"
+   TASK: ffff8802382da040  [THREAD_INFO: ffff880239b54000]
+    CPU: 0
+  STATE: TASK_UNINTERRUPTIBLE 
+
+crash> task -R mm
+PID: 12589  TASK: ffff8802382da040  CPU: 0   COMMAND: "mongo"
+  mm = 0xffff880235598240, 
+
+crash> mm_struct.exe_file 0xffff880235598240
+  exe_file = 0xffff880236dac280
+
+crash> struct file.f_path.dentry 0xffff880236dac280
+  f_path.dentry = 0xffff880106e4c440
+
+crash> files -d 0xffff880106e4c440
+     DENTRY           INODE           SUPERBLK     TYPE PATH
+ffff880106e4c440 ffff880067015cb8 ffff880235f50c00 REG  /usr/bin/mongo
+
+PID, UID, and GID of the 'mongo' task.
+
+crash> task_struct.pid ffff8802382da040
+  pid = 12589
+
+crash> task_struct.cred ffff8802382da040
+  cred = 0xffff880052d32740
+
+crash> cred.uid,gid 0xffff880052d32740
+  uid = 1845607980
+  gid = 1845607980
+
+The parent process hierarchy of the 'mongo' task PID (12589):
+
+crash> ps -p 12589
+PID: 0      TASK: ffffffff81a97020  CPU: 0   COMMAND: "swapper"
+PID: 1      TASK: ffff88023cfcd520  CPU: 0   COMMAND: "init"
+  PID: 12589  TASK: ffff8802382da040  CPU: 0   COMMAND: "mongo"
+
+The resource limits of the 'mongo' task PID (12589):
+
+crash> ps -r 12589
+PID: 12589  TASK: ffff8802382da040  CPU: 0   COMMAND: "mongo"
+      RLIMIT     CURRENT       MAXIMUM  
+         CPU   (unlimited)   (unlimited)
+       FSIZE   (unlimited)   (unlimited)
+        DATA   (unlimited)   (unlimited)
+       STACK    10485760     (unlimited)
+        CORE        0             0     
+         RSS   (unlimited)   (unlimited)
+       NPROC      1024          31309   
+      NOFILE      1024          4096    
+     MEMLOCK      65536         65536   
+          AS   (unlimited)   (unlimited)
+       LOCKS   (unlimited)   (unlimited)
+  SIGPENDING      31309         31309   
+    MSGQUEUE     819200        819200   
+        NICE        0             0     
+      RTPRIO        0             0     
+      RTTIME   (unlimited)   (unlimited)
+
+List of the open files by the 'mongo' task PID (12589):
+
+crash> files 12589
+PID: 12589  TASK: ffff8802382da040  CPU: 0   COMMAND: "mongo"
+ROOT: /    CWD: mg17300
+FD       FILE            DENTRY           INODE       TYPE PATH
+  0 ffff880037a1a780 ffff880105733bc0 ffff88017fbb5878 CHR  /dev/pts/1
+  1 ffff880037a1a780 ffff880105733bc0 ffff88017fbb5878 CHR  /dev/pts/1
+  2 ffff880037a1a780 ffff880105733bc0 ffff88017fbb5878 CHR  /dev/pts/1
+  3 ffff8802390d3980 ffff88010576cc80 ffff8801a0e72988 SOCK 
